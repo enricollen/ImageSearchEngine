@@ -16,14 +16,14 @@ def create_image_embeddings(directory):
     image_embeddings = []
     names = []
 
-    for path in image.paths:
+    for path in image_paths:
         image = load_and_preprocess_image(path)
         with torch.no_grad():
             embedding = model.encode_image(image)
         image_embeddings.append(embedding)
         names.append(path)
 
-    # Save the embeddings and paths
+    # save both the embeddings and paths
     with open('image_embeddings.pkl', 'wb') as f:
         pickle.dump({'embeddings': torch.cat(image_embeddings), 'paths': names}, f)
 

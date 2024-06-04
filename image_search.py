@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.manifold import TSNE
 
-# Initialize the model and preprocessing
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
@@ -58,11 +57,11 @@ def update_image_grid(image_results):
         # image in the grid
         panel = tk.Label(frame, image=img)
         panel.image = img  # Keep a reference to avoid garbage collection
-        panel.grid(row=0, column=i, padx=5, pady=5)  # Display images horizontally
+        panel.grid(row=0, column=i, padx=5, pady=5)  
 
         # similarity score below each image
         label = tk.Label(frame, text=f"Similarity: {score:.2f}")
-        label.grid(row=1, column=i, padx=5, pady=5)  # Scores under images
+        label.grid(row=1, column=i, padx=5, pady=5) 
 
 def plot_embeddings():
     description = entry.get()
@@ -77,7 +76,6 @@ def plot_embeddings():
     embeddings_array = np.array(embeddings_list)
     labels = [f"Image {i+1}" for i in range(len(image_results))] + ["Text"]
 
-    # Set perplexity to be less than the number of samples
     perplexity = min(30, len(embeddings_list) - 1)
     tsne = TSNE(n_components=3, random_state=42, perplexity=perplexity)
     embeddings_3d = tsne.fit_transform(embeddings_array)
@@ -108,8 +106,8 @@ if __name__ == "__main__":
 
     top_images_var = tk.StringVar(value='3')  # Default number of images to show
     combobox = ttk.Combobox(entry_frame, textvariable=top_images_var, width=3)
-    combobox['values'] = [3, 5, 10, 15, 20]  # Options for number of top images
-    combobox.current(0)  # Default selection index
+    combobox['values'] = [3, 5, 10, 15, 20]  
+    combobox.current(0)
     combobox.pack(side=tk.LEFT)
 
     search_button = tk.Button(root, text="Search", command=search_images)
