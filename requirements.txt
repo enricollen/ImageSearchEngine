@@ -1,0 +1,5 @@
+torch
+clip
+Pillow
+matplotlib
+scikit-learn
